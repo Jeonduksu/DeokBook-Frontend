@@ -1,56 +1,58 @@
-// src/pages/MainPage.js
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Book, Users, Settings } from 'lucide-react';
+import Layout from '../components/common/Layout';
 
-const books = [
-    { id: 1, title: 'React 입문', author: '홍길동', cover: 'https://via.placeholder.com/120x180?text=React' },
-    { id: 2, title: 'JavaScript 완전 정복', author: '김철수', cover: 'https://via.placeholder.com/120x180?text=JS' },
-    { id: 3, title: 'CSS 디자인', author: '이영희', cover: 'https://via.placeholder.com/120x180?text=CSS' },
-    { id: 4, title: 'Node.js 마스터', author: '박민수', cover: 'https://via.placeholder.com/120x180?text=Node' },
-    // 더 추가 가능
-];
-
-function MainPage() {
+const MainPage = () => {
     return (
-        <div style={{
-            maxWidth: '960px',
-            margin: '2rem auto',
-            fontFamily: "'Noto Serif KR', serif",
-            color: '#333',
-            padding: '0 1rem',
-        }}>
-            <header style={{ marginBottom: '2rem', textAlign: 'center' }}>
-                <h1 style={{ fontSize: '2.5rem', letterSpacing: '0.1em' }}>📚 DeokBook 도서관</h1>
-                <p style={{ fontSize: '1.1rem', color: '#666' }}>
-                    오늘의 추천 도서와 인기 도서를 만나보세요.
-                </p>
-            </header>
-
-            <section style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill,minmax(140px,1fr))',
-                gap: '1.5rem',
-            }}>
-                {books.map(book => (
-                    <div key={book.id} style={{
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-                        borderRadius: '6px',
-                        backgroundColor: '#fafafa',
-                        padding: '1rem',
-                        textAlign: 'center',
-                        cursor: 'pointer',
-                        transition: 'transform 0.15s ease-in-out',
-                    }}
-                         onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                         onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                    >
-                        <img src={book.cover} alt={book.title} style={{ width: '120px', height: '180px', borderRadius: '4px', marginBottom: '0.75rem' }} />
-                        <h3 style={{ fontSize: '1.1rem', margin: '0 0 0.3rem' }}>{book.title}</h3>
-                        <p style={{ fontSize: '0.9rem', color: '#555', margin: 0 }}>{book.author}</p>
+        <Layout showHeader={false}>
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+                <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+                    <div className="mb-8">
+                        <Book className="h-20 w-20 text-blue-600 mx-auto mb-4" />
+                        <h1 className="text-4xl font-bold text-gray-900 mb-4">DeokBook</h1>
+                        <p className="text-xl text-gray-600">미니 도서관 관리 시스템</p>
                     </div>
-                ))}
-            </section>
-        </div>
+
+                    <div className="grid md:grid-cols-2 gap-8 mt-12">
+                        {/* 관리자 로그인 */}
+                        <div className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow">
+                            <Settings className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">관리자</h2>
+                            <p className="text-gray-600 mb-6">
+                                사용자 관리, 도서 관리, 대출/반납 처리
+                            </p>
+                            <Link
+                                to="/login?type=admin"
+                                className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                            >
+                                관리자 로그인
+                            </Link>
+                        </div>
+
+                        {/* 사용자 기능 */}
+                        <div className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow">
+                            <Users className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                            <h2 className="text-2xl font-semibold text-gray-900 mb-4">사용자</h2>
+                            <p className="text-gray-600 mb-6">
+                                도서 검색, 대출 가능 여부 확인
+                            </p>
+                            <Link
+                                to="/user"
+                                className="inline-block bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors"
+                            >
+                                도서 검색
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="mt-12 text-sm text-gray-500">
+                        <p>기관 소속원만 사용할 수 있는 서비스입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </Layout>
     );
-}
+};
 
 export default MainPage;
